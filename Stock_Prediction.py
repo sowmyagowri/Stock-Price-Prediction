@@ -24,7 +24,7 @@ FILE_NAME = 'historical.csv'
 
 def stock_sentiment(quote, num_tweets):
     
-    # Check if the sentiment for our quote is positive or negative, 
+    # Check if the sentiment for the stock symbol input is positive or negative, 
     # Return True if majority of valid tweets have positive sentiment
     list_of_tweets = user.search(quote, count=num_tweets)
     positive, null = 0, 0
@@ -42,7 +42,8 @@ def stock_sentiment(quote, num_tweets):
 
 
 def get_historical(quote):
-    # Download our file from google finance
+    
+    # Download the historical data from google finance
     url = 'http://www.google.com/finance/historical?q=NASDAQ%3A'+quote+'&output=csv'
     r = requests.get(url, stream=True)
 
@@ -55,7 +56,7 @@ def get_historical(quote):
 
 def stock_prediction():
 
-    # Collect data points from csv
+    # Collect data points from the csv file
     dataset = []
 
     with open(FILE_NAME) as fr:
@@ -73,3 +74,22 @@ def stock_prediction():
     trainX, trainY = create_dataset(dataset)
 
 
+# Ask user for a stock symbol
+stock_quote = input("Enter a stock symbol from NASDAQ (e.j: AAPL, FB, GOOGL): ").upper()
+
+# Check if the stock sentiment is positive
+if not stock_sentiment(stock_quote, num_tweets=100):
+    print ("This stock has bad sentiment, please re-run the script")
+    sys.exit()
+
+# Check if we have the historical data from Google finance
+if not get_historical(stock_quote):
+    print ("Google returned a 404, please re-run the script and")
+    print ("enter a valid stock quote from NASDAQ")
+    sys.exit()
+
+# Run the neural net to get the prediction
+stock_prediction()
+
+# Delete the csv file after processing
+os.remove(FILE_NAME)
