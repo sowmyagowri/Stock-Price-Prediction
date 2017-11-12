@@ -43,7 +43,7 @@ def stock_sentiment(quote, num_tweets):
 
 def get_historical(quote):
     
-    # Download the historical data from google finance
+    # Download the historical data(historical.csv) from google finance
     url = 'http://www.google.com/finance/historical?q=NASDAQ%3A'+quote+'&output=csv'
     r = requests.get(url, stream=True)
 
