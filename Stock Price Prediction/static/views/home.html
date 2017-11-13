@@ -1,0 +1,28 @@
+<style>
+	body {height:100%; overflow-y:hidden;}
+	.md-menu-showing{
+		overflow-x: hidden;
+		overflow-y: hidden;
+	}
+</style>
+
+<div ng-controller="MainController" layout="column" ng-cloak=""  ng-app="sampleApp">
+<section class="webdesigntuts-workshop">
+		<div>
+	  <md-content class="md-padding" style="background-color:transparent;overflow:hidden">
+	    <form ng-submit="$event.preventDefault()">
+	      <md-autocomplete ng-disabled="isDisabled" md-no-cache="noCache" md-selected-item="selectedItem" md-search-text-change="searchTextChange(searchText)" md-search-text="searchText" md-selected-item-change="selectedItemChange(item)" md-items="item in querySearch(searchText)" md-item-text="item.display" md-min-length="0" placeholder="Search for a Company">
+	        <md-item-template>
+	          <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.display}}</span>
+	        </md-item-template>
+	        <md-not-found>
+	          No Company matching "{{searchText}}" were found.
+	          May be it is not public yet!
+	        </md-not-found>
+	      </md-autocomplete>
+	    </form>
+	  </md-content>
+	</div>
+	</section>
+		<vid-bg resources="resources" poster="poster" full-screen="fullScreen" muted="muted" volume="0" z-index="zIndex" play-info="playInfo" pause-play="pausePlay" style:"width:109%"></vid-bg>
+</div>

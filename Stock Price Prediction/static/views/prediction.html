@@ -1,0 +1,16 @@
+<style>
+.jumbotron {
+		padding-top: 1px;
+		padding-bottom: 8px;
+	}
+</style>
+
+<div class="jumbotron text-center">
+	<b>
+		<h2>Stock Price Trend</h2>
+	</b>
+</div>
+
+<div id="homeValueChart" ng-init="compareHomeData()" ng-app='predictionApp' ng-controller="PredictionController" style="width:70%;height:70%;margin-left:290px">
+	<svg width="70" height="70"></svg>
+</div>
