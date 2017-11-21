@@ -1,0 +1,11 @@
+numpy
+scipy
+requests
+pyyaml
+tensorflow
+keras
+Flask
+flask_sqlalchemy
+flask_httpauth
+passlib
+functions
