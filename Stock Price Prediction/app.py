@@ -39,7 +39,7 @@ def get_historical():
             for n, line in enumerate(f):
                 if n != 0:
                     str = line.split(',')[1]
-                    if(str != '-')
+                    if(str != "-"):
                         dataset.append(float(line.split(',')[1]))
     
         dataset = np.array(dataset)
