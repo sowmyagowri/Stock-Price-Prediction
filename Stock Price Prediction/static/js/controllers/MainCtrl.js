@@ -46,7 +46,7 @@ angular.module('MainCtrl', []).controller('MainController', function($scope,$tim
 	}
 
 	/**
-	 * Build `companies` list of key/value pairs
+	 * Build 'companies' list of key/value pairs
 	 */
 	self.loadAll = function () {
 		var allCompanies = 'A, AA';
@@ -59,8 +59,8 @@ angular.module('MainCtrl', []).controller('MainController', function($scope,$tim
 		});
 	}
 
-	// list of `company` value/display objects
-	self.companies        = self.loadAll;
+	// list of 'company' value/display objects
+	self.companies = self.loadAll;
 
 	/**
 	 * Create filter function for a query string

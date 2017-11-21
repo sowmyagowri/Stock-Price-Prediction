@@ -2,38 +2,55 @@ var app = angular.module("PredictionCtrl", []);
 
 app.controller("PredictionController", function ($scope, $http) {
 
-	$scope.postdata = function (yearlist) {
-	var data = {
-	 year: yearlist
+	$scope.predictstockprices = function(){
+
+
+		$http.get('/prediction',JSON.stringify(data)).then(function (response) {
+
+			var values = response.data[0].value;
+			var xTicks = [];
+			xTicks.push(values[0]);
+			for (var i = 1 ; i < values.length; i++) {
+				xTicks.push(values[0]+i);
+			}
+
+			$scope.stockPricesData =  [
+			  {
+			    "key": response.data[1].label,
+			    "values": response.data[1].value
+			  },
+			  {
+			    "key": response.data[2].label,
+			    "values": response.data[2].value
+			  }
+			]
+
+			nv.addGraph(function() {
+		    var chart = nv.models.cumulativeLineChart()
+		                  .x(function(d) { return d[0] })
+		                  .y(function(d) { return d[1]/100}) //adjusting, 100% is 1.00, not 100 as it is in the data
+		                  .color(d3.scale.category10().range())
+		                  .useInteractiveGuideline(true)
+		                  ;
+
+		     chart.xAxis
+		        .tickValues( xTicks)
+		        .axisLabel('Year');
+
+		      chart.yAxis
+        		.tickFormat(d3.format(',.1%'))
+        		.axisLabel('Stock Price in $');
+
+		      d3.select('#stockPricesChart svg')
+		        .datum($scope.stockPricesData)
+		        .call(chart);
+
+
+		    //TODO: Figure out a good way to do this automatically
+		    nv.utils.windowResize(chart.update);
+
+	    	return chart;
+  		});
+	})
 	}
-	$scope.yearSelected  = yearlist;
-	
-	$http.post('/emergency', JSON.stringify(data)).then(function (response) {
-
-
-	nv.addGraph(function() {
-  var chart = nv.models.pieChart()
-      .x(function(d) { return d.label })
-      .y(function(d) { return d.value })
-      .showLabels(true)     //Display pie labels
-      .labelThreshold(.05)  //Configure the minimum slice size for labels to show up
-      .labelType("percent")//Configure what type of data to show in the label. Can be "key", "value" or "percent"
-      .donut(true)          //Turn on Donut mode. Makes pie chart look tasty!
-      .donutRatio(0.35)     //Configure how big you want the donut hole size to be.
-      ;
-
-    d3.select("#donutChart svg")
-        .datum(response.data)
-        .transition().duration(350)
-        .call(chart);
-
-  return chart;
-});
-
-
-
-});
-
-}
-$scope.postdata('2017');
 });
