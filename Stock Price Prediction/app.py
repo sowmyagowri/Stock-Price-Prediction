@@ -38,7 +38,9 @@ def get_historical():
         with open(FILE_NAME) as f:
             for n, line in enumerate(f):
                 if n != 0:
-                    dataset.append(float(line.split(',')[1]))
+                    str = line.split(',')[1]
+                    if(str != '-')
+                        dataset.append(float(line.split(',')[1]))
     
         dataset = np.array(dataset)
     
