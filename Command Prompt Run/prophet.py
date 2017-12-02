@@ -4,9 +4,33 @@ import pandas_datareader.data as web
 from fbprophet import Prophet
 import datetime
 import matplotlib.pyplot as plt
+from flask import Flask, render_template
+from flask import request, redirect
+from pathlib import Path
+import os
+import os.path
+
+app = Flask(__name__)
  
 plt.rcParams['figure.figsize']=(20,10)
 plt.style.use('ggplot')
+
+@app.after_request
+def add_header(response):
+    """
+    Add headers to both force latest IE rendering engine or Chrome Frame,
+    and also to cache the rendered page for 10 minutes.
+    """
+    response.headers['X-UA-Compatible'] = 'IE=Edge,chrome=1'
+    response.headers['Cache-Control'] = 'public, max-age=0'
+    return response
+    
+@app.route("/")
+def first_page():
+    tmp = Path("static/prophet.png")
+    if tmp.is_file():
+        os.remove(tmp)
+    return render_template("index.html")
 
 #function to get stock data
 def yahoo_stocks(symbol, start, end):
@@ -17,64 +41,78 @@ def get_historical_stock_price(stock):
     
     #get 7 year stock data for Apple
     startDate = datetime.datetime(2010, 1, 4)
-    date = datetime.datetime.now().date()
-    endDate = pd.to_datetime(date)
+    #date = datetime.datetime.now().date()
+    #endDate = pd.to_datetime(date)
+    endDate = datetime.datetime(2017, 11, 28)
     stockData = yahoo_stocks(stock, startDate, endDate)
     return stockData
 
+@app.route("/result" , methods = ['POST', 'GET'] )
 def main():
-    stock = input("Enter stock name(ex:GOOGL, AAPL): ")
-    df_whole = get_historical_stock_price(stock)
-    
-    df = df_whole.filter(['Close'])
-    
-    df['ds'] = df.index
-    #log transform the ‘Close’ variable to convert non-stationary data to stationary.
-    df['y'] = np.log(df['Close'])
-    
-    model = Prophet()
-    model.fit(df)
+    if request.method == 'POST':
+        stock = request.form['companyname']
+        df_whole = get_historical_stock_price(stock)
 
-    num_days = int(input("Enter no of days to predict stock price for: "))
-    
-    future = model.make_future_dataframe(periods=num_days)
-    forecast = model.predict(future)
-    
-    print (forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']].tail())
-    
-    #Prophet plots the observed values of our time series (the black dots), the forecasted values (blue line) and
-    #the uncertainty intervalsof our forecasts (the blue shaded regions).
-    forecast_plot = model.plot(forecast)
-    forecast_plot.show()
-    
-    #make the vizualization a little better to understand
-    df.set_index('ds', inplace=True)
-    forecast.set_index('ds', inplace=True)
-    
-    viz_df = df.join(forecast[['yhat', 'yhat_lower','yhat_upper']], how = 'outer')
-    viz_df['yhat_scaled'] = np.exp(viz_df['yhat'])
-    
-    fig = plt.figure()
-    ax1 = fig.add_subplot(111)
-    ax1.xaxis_date()
-    ax1.plot(viz_df.index, viz_df.Close)
-    ax1.plot(viz_df.index, viz_df.yhat_scaled, linestyle=':')
-    ax1.set_title('Actual Close (Orange) vs Close Forecast (Black)')
-    ax1.set_ylabel('Closing Price in Dollars')
-    ax1.set_xlabel('Date')
-    
-    L = ax1.legend() #get the legend
-    L.get_texts()[0].set_text('Actual Close') #change the legend text for 1st plot
-    L.get_texts()[1].set_text('Forecasted Close') #change the legend text for 2nd plot
-    
-    plt.savefig('graph/prophet.png', bbox_inches='tight')
-    plt.show()
-    
-    #plot using dataframe's plot function
-    viz_df['Actual Close'] = viz_df['Close']
-    viz_df['Forecasted Close'] = viz_df['yhat_scaled']
-    
-    viz_df[['Actual Close', 'Forecasted Close']].plot()
-    
+        df = df_whole.filter(['Close'])
+        
+        df['ds'] = df.index
+        #log transform the ‘Close’ variable to convert non-stationary data to stationary.
+        df['y'] = np.log(df['Close'])
+        
+        model = Prophet()
+        model.fit(df)
+
+        #num_days = int(input("Enter no of days to predict stock price for: "))
+        
+        num_days = 100
+        future = model.make_future_dataframe(periods=num_days)
+        forecast = model.predict(future)
+        
+        print (forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']].tail())
+        
+        #Prophet plots the observed values of our time series (the black dots), the forecasted values (blue line) and
+        #the uncertainty intervalsof our forecasts (the blue shaded regions).
+        
+        forecast_plot = model.plot(forecast)
+        #forecast_plot.show()
+        
+        #make the vizualization a little better to understand
+        df.set_index('ds', inplace=True)
+        forecast.set_index('ds', inplace=True)
+        
+        viz_df = df.join(forecast[['yhat', 'yhat_lower','yhat_upper']], how = 'outer')
+        viz_df['yhat_scaled'] = np.exp(viz_df['yhat'])
+        
+        
+        fig = plt.figure()
+        ax1 = fig.add_subplot(111)
+        #ax1.xaxis_date()
+        ax1.plot(viz_df.index, viz_df.Close)
+        ax1.plot(viz_df.index, viz_df.yhat_scaled, linestyle=':')
+        ax1.set_title('Actual Close (Orange) vs Close Forecast (Black)')
+        ax1.set_ylabel('Closing Price in Dollars')
+        ax1.set_xlabel('Date')
+        
+        L = ax1.legend() #get the legend
+        L.get_texts()[0].set_text('Actual Close') #change the legend text for 1st plot
+        L.get_texts()[1].set_text('Forecasted Close') #change the legend text for 2nd plot
+        
+        plt.savefig('static/prophet.png', bbox_inches='tight')
+        #plt.show()
+        
+        #plot using dataframe's plot function
+        #viz_df['Actual Close'] = viz_df['Close']
+        #viz_df['Forecasted Close'] = viz_df['yhat_scaled']
+        
+        #viz_df[['Actual Close', 'Forecasted Close']].plot()
+
+        return render_template("result.html")
+
+
+'''
 if __name__ == "__main__":
     main()
+'''
+
+if __name__ == "__main__":
+    app.run(debug=True, threaded=True)

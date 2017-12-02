@@ -1,0 +1,27 @@
+.homepage
+{
+	position: absolute;
+	top: 5%;
+	left: 10%;
+	transform: translate(-50%,-50%);
+	outline: none;	
+	font-weight: ;
+	color: white;
+	font-size: 18px;
+	text-decoration: none;
+}
+
+.graph
+{
+	top: 45%;
+	left: 48%;
+}
+
+.topnav {
+    background-color: #333;
+    overflow: hidden;
+    height: 60px;
+    width: 100%;
+    font-family: Comic Sans MS;
+}
+
