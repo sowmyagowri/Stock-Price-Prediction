@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import pandas as pd
 import numpy as np
 import pandas_datareader.data as web
@@ -132,8 +133,6 @@ def main():
         #print("Forecasted value is:")
         #print(viz_df['Forecasted Close'][-1])
         return render_template("plot.html")
-
-
 '''
 if __name__ == "__main__":
     main()

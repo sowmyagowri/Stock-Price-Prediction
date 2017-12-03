@@ -25,3 +25,21 @@
     font-family: Comic Sans MS;
 }
 
+.graph
+{
+	position: absolute;
+	top: 20%;
+	left: 15%;
+	box-sizing: border-box;
+	outline: none;	
+
+}
+
+.labels
+{
+	position: absolute;
+	top: 90%;
+	left: 40%;
+	box-sizing: border-box;
+	outline: none;	
+}

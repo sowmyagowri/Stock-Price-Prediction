@@ -7,19 +7,20 @@
     <link rel="stylesheet" href="/static/css/dygraph.css"/>
 </head>
 
-<body>
+<body >
     <div class="topnav" >
         <a href="/" class = "homepage" style="color:White" >Stock Value Prediction</a>
     </div>
-    <div id="graph" style="width:1000px; height:500px;"></div>
+    <div id="graph" style="width:1000px; height:500px;" class="graph"></div>
 
-<p><b>Show Data:</b></p>
-<p>
-    <input type=checkbox id="0" checked onClick="change(this)">
-    <label for="0"> Actual</label><br/>
-    <input type=checkbox id="1" checked onClick="change(this)">
-    <label for="1"> Forecasted</label><br/>
-</p>
+    <div class = "labels">
+        Show Data:
+        <input type=checkbox id="0" checked onClick="change(this)">
+        <label for="0"> Actual</label>
+        <input type=checkbox id="1" checked onClick="change(this)">
+        <label for="1"> Forecasted</label>
+    </div>
+
           
 <script type="text/javascript">
     g2 = new Dygraph(
