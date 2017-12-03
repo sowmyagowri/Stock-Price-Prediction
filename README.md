@@ -1,14 +1,14 @@
 # Project-Team-6  
 ## Stock Price Prediction 
 
-### A web based product using machine learning models to predict future values of stock market based on the historical values.  
+#### A web based product using machine learning models to predict future values of stock market based on the historical values.  
 
-##Machine learning models used:  
+## Machine learning models used:  
 1. Keras - tensorflow  
 2. Arima model
 3. Prophet   
 
-##Technologies used:
+## Technologies used:
 Python for backend  
 Flask framework for integration of frontend and backend  
 CSS and HTML for front end  
