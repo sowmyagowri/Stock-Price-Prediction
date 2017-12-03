@@ -1,0 +1,49 @@
+<html>
+<head>
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/dygraph/2.0.0/dygraph.js"></script>
+    <link rel="stylesheet" src="https://cdnjs.cloudflare.com/ajax/libs/dygraph/2.0.0/dygraph.css" />
+</head>
+<body>
+Graph of historic data
+<div id="graphdiv2"
+    style="width:1000px; height:500px;"></div>
+
+<p><b>Show Data:</b></p>
+<p>
+<input type=checkbox id="0" checked onClick="change(this)">
+    <label for="0"> Open</label><br/>
+    <input type=checkbox id="1" checked onClick="change(this)">
+        <label for="1"> High</label><br/>
+        <input type=checkbox id="2" checked onClick="change(this)">
+            <label for="2"> Low</label><br/>
+            <input type=checkbox id="3" checked onClick="change(this)">
+                <label for="3"> Close</label>
+                <input type=checkbox id="4" onClick="change(this)">
+                    <label for="4"> Volume</label>
+            </p>
+            
+            
+            
+<script type="text/javascript">
+    g2 = new Dygraph(
+                     document.getElementById("graphdiv2"),
+                     "/Users/indirabobburi/github/SJSU272LabF17/Project-Team-6/templates/historical.csv", // path to CSV file
+                     {
+                     rollPeriod: 8,
+                     showRoller: true,
+                     visibility: [true, true, true, true, false]
+                     }          // options
+                     );
+     setStatus();
+                     
+     function setStatus() {
+                         document.getElementById("visibility").innerHTML =
+                         g2.visibility().toString();
+                     }
+    function change(el) {
+                        g2.setVisibility(parseInt(el.id), el.checked);
+                        setStatus();
+                     }
+</script>
+</body>
+</html>
