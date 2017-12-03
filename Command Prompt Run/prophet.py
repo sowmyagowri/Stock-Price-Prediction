@@ -9,6 +9,8 @@ from flask import request, redirect
 from pathlib import Path
 import os
 import os.path
+import csv
+from itertools import zip_longest
 
 app = Flask(__name__)
  
@@ -28,8 +30,10 @@ def add_header(response):
 @app.route("/")
 def first_page():
     tmp = Path("static/prophet.png")
+    tmp_csv = Path("static/numbers.csv")
     if tmp.is_file():
         os.remove(tmp)
+        os.remove(tmp_csv)
     return render_template("index.html")
 
 #function to get stock data
@@ -47,7 +51,7 @@ def get_historical_stock_price(stock):
     stockData = yahoo_stocks(stock, startDate, endDate)
     return stockData
 
-@app.route("/result" , methods = ['POST', 'GET'] )
+@app.route("/plot" , methods = ['POST', 'GET'] )
 def main():
     if request.method == 'POST':
         stock = request.form['companyname']
@@ -64,11 +68,13 @@ def main():
 
         #num_days = int(input("Enter no of days to predict stock price for: "))
         
-        num_days = 100
+        num_days = 10
         future = model.make_future_dataframe(periods=num_days)
         forecast = model.predict(future)
         
         print (forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']].tail())
+
+        plot_num = 365
         
         #Prophet plots the observed values of our time series (the black dots), the forecasted values (blue line) and
         #the uncertainty intervalsof our forecasts (the blue shaded regions).
@@ -79,34 +85,52 @@ def main():
         #make the vizualization a little better to understand
         df.set_index('ds', inplace=True)
         forecast.set_index('ds', inplace=True)
+        #date = df['ds'].tail(plot_num)
         
         viz_df = df.join(forecast[['yhat', 'yhat_lower','yhat_upper']], how = 'outer')
         viz_df['yhat_scaled'] = np.exp(viz_df['yhat'])
+
         
-        
-        fig = plt.figure()
-        ax1 = fig.add_subplot(111)
+
+        close_data = viz_df.Close.tail(plot_num)
+        forecasted_data = viz_df.yhat_scaled.tail(plot_num)
+        date = future['ds'].tail(num_days+plot_num)
+        #date = viz_df.index[-plot_num:-1]
+
+        d = [date, close_data, forecasted_data]
+        export_data = zip_longest(*d, fillvalue = '')
+        with open('static/numbers.csv', 'w', encoding="ISO-8859-1", newline='') as myfile:
+            wr = csv.writer(myfile)
+            wr.writerow(("Date", "Original", "Forecasted"))
+            wr.writerows(export_data)
+        myfile.close()
+
+        #fig = plt.figure()
+        #ax1 = fig.add_subplot(111)
         #ax1.xaxis_date()
-        ax1.plot(viz_df.index, viz_df.Close)
-        ax1.plot(viz_df.index, viz_df.yhat_scaled, linestyle=':')
-        ax1.set_title('Actual Close (Orange) vs Close Forecast (Black)')
-        ax1.set_ylabel('Closing Price in Dollars')
-        ax1.set_xlabel('Date')
+        #ax1.plot(viz_df.index, viz_df.Close)
+        #ax1.plot(viz_df.index, viz_df.yhat_scaled, linestyle=':')
+        #ax1.set_title('Actual Close (Orange) vs Close Forecast (Black)')
+        #ax1.set_ylabel('Closing Price in Dollars')
+        #ax1.set_xlabel('Date')
         
-        L = ax1.legend() #get the legend
-        L.get_texts()[0].set_text('Actual Close') #change the legend text for 1st plot
-        L.get_texts()[1].set_text('Forecasted Close') #change the legend text for 2nd plot
+        #L = ax1.legend() #get the legend
+        #L.get_texts()[0].set_text('Actual Close') #change the legend text for 1st plot
+        #L.get_texts()[1].set_text('Forecasted Close') #change the legend text for 2nd plot
         
-        plt.savefig('static/prophet.png', bbox_inches='tight')
+        #plt.savefig('static/prophet.png', bbox_inches='tight')
         #plt.show()
         
         #plot using dataframe's plot function
-        #viz_df['Actual Close'] = viz_df['Close']
-        #viz_df['Forecasted Close'] = viz_df['yhat_scaled']
+        viz_df['Actual Close'] = viz_df['Close']
+        viz_df['Forecasted Close'] = viz_df['yhat_scaled']
         
-        #viz_df[['Actual Close', 'Forecasted Close']].plot()
-
-        return render_template("result.html")
+        viz_df[['Actual Close', 'Forecasted Close']].plot()
+        #print("Actual value is:")
+        #print(viz_df['Actual Close'][-1])
+        #print("Forecasted value is:")
+        #print(viz_df['Forecasted Close'][-1])
+        return render_template("plot.html")
 
 
 '''
