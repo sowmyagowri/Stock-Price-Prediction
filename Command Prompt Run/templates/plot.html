@@ -1,7 +1,9 @@
 <html>
 <head>
-    <script src = "https://cdnjs.cloudflare.com/ajax/libs/dygraph/2.0.0/dygraph.js"></script>
-    <link rel="stylesheet" src="https://cdnjs.cloudflare.com/ajax/libs/dygraph/2.0.0/dygraph.css" />
+    <meta charset="utf-8">
+    <title> Result </title>
+    <script src="/static/js/dygraph.js"></script>
+    <link rel="stylesheet" href="/static/css/dygraph.css"/>
 </head>
 <body>
 Graph of historic data
@@ -27,7 +29,12 @@ Graph of historic data
 <script type="text/javascript">
     g2 = new Dygraph(
                      document.getElementById("graphdiv2"),
-                     "historical.csv", // path to CSV file
+                     // CSV or path to a CSV file.
+                    "Date,Temperature\n" +
+                    "2008-05-07,75\n" +
+                    "2008-05-08,70\n" +
+                    "2008-05-09,80\n"
+                    , // path to CSV file
                      {
                      rollPeriod: 8,
                      showRoller: true,
