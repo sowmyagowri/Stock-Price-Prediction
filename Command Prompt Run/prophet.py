@@ -107,7 +107,7 @@ def main():
         export_data = zip_longest(*d, fillvalue = '')
         with open('static/numbers.csv', 'w', encoding="ISO-8859-1", newline='') as myfile:
             wr = csv.writer(myfile)
-            wr.writerow(("Date", "Original", "Forecasted"))
+            wr.writerow(("Date", "Actual", "Forecasted"))
             wr.writerows(export_data)
         myfile.close()
 

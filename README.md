@@ -1,9 +1,19 @@
 # Project-Team-6  
-## Stock Price Prediction  
+## Stock Price Prediction 
 
-The front-end has been created using Angularjs framework with CSS and HTML. The backend runs in python on Flask framework.  
+### A web based product using machine learning models to predict future values of stock market based on the historical values.  
 
-Steps to run:  
+##Machine learning models used:  
+1. Keras - tensorflow  
+2. Arima model
+3. Prophet   
+
+##Technologies used:
+Python for backend  
+Flask framework for integration of frontend and backend  
+CSS and HTML for front end  
+
+## Steps to run:  
 1. Clone the github and goto the folder  
         $git clone https://github.com/SJSU272LabF17/Project-Team-6  
         $cd ./Project-Team-6/  
@@ -13,5 +23,5 @@ Steps to run:
 	$source Dependencies/bin/activate  
 4. Install dependencies numpy, scipy, requests, pyyaml, tensorflow, keras  
 	$pip install -r requirements.txt  
-5. Run "Command Prompt Run/predict_stock.py" - backend  
-6. Run "Stock Price Prediction/app.py"       - frontend  
+5. Run "Command Prompt Run/prophet.py" -- this starts the http server using python flask  
+6. Open the port on browser and use the site.  
