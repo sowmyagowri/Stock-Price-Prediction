@@ -94,9 +94,13 @@ def main():
 
         
 
-        close_data = viz_df.Close.tail(plot_num)
-        forecasted_data = viz_df.yhat_scaled.tail(plot_num)
-        date = future['ds'].tail(num_days+plot_num)
+        #close_data = viz_df.Close.tail(plot_num)
+        #forecasted_data = viz_df.yhat_scaled.tail(plot_num)
+        #date = future['ds'].tail(num_days+plot_num)
+
+        close_data = viz_df.Close
+        forecasted_data = viz_df.yhat_scaled
+        date = future['ds']
         #date = viz_df.index[-plot_num:-1]
 
         d = [date, close_data, forecasted_data]
