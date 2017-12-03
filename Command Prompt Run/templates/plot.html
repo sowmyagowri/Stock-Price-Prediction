@@ -1,44 +1,35 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title> Result </title>
+    <title> Prediction Results </title>
     <script src="/static/js/dygraph.js"></script>
+    <link rel="stylesheet" href="../static/style_result.css">
     <link rel="stylesheet" href="/static/css/dygraph.css"/>
 </head>
+
 <body>
-Graph of historic data
-<div id="graphdiv2"
-    style="width:1000px; height:500px;"></div>
+    <div class="topnav" >
+        <a href="/" class = "homepage" style="color:White" >Stock Value Prediction</a>
+    </div>
+    <div id="graph" style="width:1000px; height:500px;"></div>
 
 <p><b>Show Data:</b></p>
 <p>
-<input type=checkbox id="0" checked onClick="change(this)">
-    <label for="0"> Open</label><br/>
+    <input type=checkbox id="0" checked onClick="change(this)">
+    <label for="0"> Actual</label><br/>
     <input type=checkbox id="1" checked onClick="change(this)">
-        <label for="1"> High</label><br/>
-        <input type=checkbox id="2" checked onClick="change(this)">
-            <label for="2"> Low</label><br/>
-            <input type=checkbox id="3" checked onClick="change(this)">
-                <label for="3"> Close</label>
-                <input type=checkbox id="4" onClick="change(this)">
-                    <label for="4"> Volume</label>
-            </p>
-            
-            
-            
+    <label for="1"> Forecasted</label><br/>
+</p>
+          
 <script type="text/javascript">
     g2 = new Dygraph(
-                     document.getElementById("graphdiv2"),
+                     document.getElementById("graph"),
                      // CSV or path to a CSV file.
-                    "Date,Temperature\n" +
-                    "2008-05-07,75\n" +
-                    "2008-05-08,70\n" +
-                    "2008-05-09,80\n"
-                    , // path to CSV file
+                     "{{ url_for('static', filename='numbers.csv') }}", // path to CSV file
                      {
                      rollPeriod: 8,
                      showRoller: true,
-                     visibility: [true, true, true, true, false]
+                     visibility: [true, true]
                      }          // options
                      );
      setStatus();

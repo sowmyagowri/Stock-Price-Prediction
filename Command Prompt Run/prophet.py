@@ -33,6 +33,7 @@ def first_page():
     tmp_csv = Path("static/numbers.csv")
     if tmp.is_file():
         os.remove(tmp)
+    if tmp_csv.is_file():
         os.remove(tmp_csv)
     return render_template("index.html")
 
