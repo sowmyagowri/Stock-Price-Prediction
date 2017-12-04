@@ -26,6 +26,12 @@ def add_header(response):
     
 @app.route("/")
 def first_page():
+    """
+    original_end = 175
+    forecast_start = 200
+    stock = "IBM"
+    return render_template("plot.html", original = original_end, forecast = forecast_start, stock_tinker = stock)
+    """
     tmp = Path("static/prophet.png")
     tmp_csv = Path("static/numbers.csv")
     if tmp.is_file():
@@ -105,7 +111,7 @@ def main():
             wr.writerows(export_data)
         myfile.close()
 
-        return render_template("plot.html", original = original_end, forecast = forecast_start)
+        return render_template("plot.html", original = round(original_end,2), forecast = round(forecast_start,2), stock_tinker = stock.upper())
 '''
 if __name__ == "__main__":
     main()
