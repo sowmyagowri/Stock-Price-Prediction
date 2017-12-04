@@ -14,7 +14,7 @@
 
     <div class="container">
         <div id="graph" style="width:1000px; height:500px;" class="graph"></div>
-        <div id="graphLegend" style="width:20px; height:3px;"></div>
+        <div id="graphLegend" style="width:20px; height:3px;" class="graphLegend"></div>
     </div>
     
     <div class = "labels">
@@ -32,7 +32,7 @@
                      // CSV or path to a CSV file.
                      "{{ url_for('static', filename='numbers.csv') }}", // path to CSV file
                      {
-                     rollPeriod: 8,
+                     rollPeriod: 1,
                      showRoller: true,
                      visibility: [true, true],
                      labelsDiv: document.getElementById("graphLegend")
