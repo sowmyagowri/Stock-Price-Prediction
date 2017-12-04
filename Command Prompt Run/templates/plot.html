@@ -11,14 +11,18 @@
     <div class="topnav" >
         <a href="/" class = "homepage" style="color:White" >Stock Value Prediction</a>
     </div>
-    <div id="graph" style="width:1000px; height:500px;" class="graph"></div>
 
+    <div class="container">
+        <div id="graph" style="width:1000px; height:500px;" class="graph"></div>
+        <div id="graphLegend" style="width:20px; height:3px;"></div>
+    </div>
+    
     <div class = "labels">
         Show Data:
         <input type=checkbox id="0" checked onClick="change(this)">
-        <label for="0"> Actual</label>
+        <label for="0"> <font color="008000">Actual</font></label>
         <input type=checkbox id="1" checked onClick="change(this)">
-        <label for="1"> Forecasted</label>
+        <label for="1"> <font color="#000080">Forecasted</font></label>
     </div>
 
           
@@ -30,7 +34,8 @@
                      {
                      rollPeriod: 8,
                      showRoller: true,
-                     visibility: [true, true]
+                     visibility: [true, true],
+                     labelsDiv: document.getElementById("graphLegend")
                      }          // options
                      );
      setStatus();

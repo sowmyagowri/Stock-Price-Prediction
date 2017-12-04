@@ -4,7 +4,6 @@ import numpy as np
 import pandas_datareader.data as web
 from fbprophet import Prophet
 import datetime
-import matplotlib.pyplot as plt
 from flask import Flask, render_template
 from flask import request, redirect
 from pathlib import Path
@@ -14,9 +13,6 @@ import csv
 from itertools import zip_longest
 
 app = Flask(__name__)
- 
-plt.rcParams['figure.figsize']=(20,10)
-plt.style.use('ggplot')
 
 @app.after_request
 def add_header(response):
@@ -111,31 +107,6 @@ def main():
             wr.writerows(export_data)
         myfile.close()
 
-        #fig = plt.figure()
-        #ax1 = fig.add_subplot(111)
-        #ax1.xaxis_date()
-        #ax1.plot(viz_df.index, viz_df.Close)
-        #ax1.plot(viz_df.index, viz_df.yhat_scaled, linestyle=':')
-        #ax1.set_title('Actual Close (Orange) vs Close Forecast (Black)')
-        #ax1.set_ylabel('Closing Price in Dollars')
-        #ax1.set_xlabel('Date')
-        
-        #L = ax1.legend() #get the legend
-        #L.get_texts()[0].set_text('Actual Close') #change the legend text for 1st plot
-        #L.get_texts()[1].set_text('Forecasted Close') #change the legend text for 2nd plot
-        
-        #plt.savefig('static/prophet.png', bbox_inches='tight')
-        #plt.show()
-        
-        #plot using dataframe's plot function
-        viz_df['Actual Close'] = viz_df['Close']
-        viz_df['Forecasted Close'] = viz_df['yhat_scaled']
-        
-        viz_df[['Actual Close', 'Forecasted Close']].plot()
-        #print("Actual value is:")
-        #print(viz_df['Actual Close'][-1])
-        #print("Forecasted value is:")
-        #print(viz_df['Forecasted Close'][-1])
         return render_template("plot.html")
 '''
 if __name__ == "__main__":

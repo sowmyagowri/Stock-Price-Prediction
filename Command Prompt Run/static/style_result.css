@@ -11,12 +11,6 @@
 	text-decoration: none;
 }
 
-.graph
-{
-	top: 45%;
-	left: 48%;
-}
-
 .topnav {
     background-color: #333;
     overflow: hidden;
@@ -32,7 +26,15 @@
 	left: 15%;
 	box-sizing: border-box;
 	outline: none;	
+}
 
+.graphLegend
+{
+	position: absolute;
+	bottom: : 20%;
+	right: 15%;
+	box-sizing: border-box;
+	outline: none;	
 }
 
 .labels
