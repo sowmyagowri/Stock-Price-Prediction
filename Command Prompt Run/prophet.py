@@ -77,7 +77,7 @@ def main():
         #Prophet plots the observed values of our time series (the black dots), the forecasted values (blue line) and
         #the uncertainty intervalsof our forecasts (the blue shaded regions).
         
-        forecast_plot = model.plot(forecast)
+        #forecast_plot = model.plot(forecast)
         #forecast_plot.show()
         
         #make the vizualization a little better to understand
