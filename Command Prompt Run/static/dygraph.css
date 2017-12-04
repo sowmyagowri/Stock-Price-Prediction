@@ -45,8 +45,7 @@
 }
 
 .dygraph-roller {
-  position: absolute;
-  z-index: 10;
+  display: none;
 }
 
 /* This class is shared by all annotations, including those with icons */
