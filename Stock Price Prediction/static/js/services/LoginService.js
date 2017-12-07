@@ -1,1 +1,0 @@
-angular.module("LoginService", []).service('LoginService', function($http, $rootScope) {});

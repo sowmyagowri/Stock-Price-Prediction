@@ -1,2 +1,0 @@
-angular.module('sampleApp', ['ngRoute', 'appRoutes', 'angular-loading-bar','MainCtrl', 'PredictionCtrl',
-				'OverviewCtrl','LoginService', 'ngMaterial', 'ngMessages', 'material.svgAssetsCache','ngVidBg']);
