@@ -1,5 +1,6 @@
 # Project-Team-6  
 ## Stock Price Prediction 
+### Learn about the product at: https://www.youtube.com/watch?v=jAdHvbbOOYs
 
 A web based product using machine learning models to predict future stock values based on the historical values.  
 
