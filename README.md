@@ -5,9 +5,7 @@
 A web based product using machine learning models to predict future stock values based on the historical values.  
 
 ## Machine learning models used:  
-1. Keras - tensorflow  
-2. Arima model
-3. Prophet   
+FB Prophet
 
 ## Technologies used:
 Python for backend  
