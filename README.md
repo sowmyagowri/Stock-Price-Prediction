@@ -30,14 +30,12 @@ Dygraphs for plotting
 ## Site available at: http://13.57.46.92:5000/ 
 ![Alt text](images/homepage.jpeg?raw=true) 
 
-In homepage, when the company ticker symbol is given, it fetches real time data using yahoo finance api  
+In homepage, when the company ticker symbol is given, it fetches real time data using yahoo finance api.    
 ![Alt text](images/runtime_data_fetch.jpeg?raw=true) 
 
-The machine learning model tries to for the entire time period, predicting the data at each step using the previous data and learning from it.  
-This helps in predicting the anamolies over the years.  
+The machine learning model tries to for the entire time period, predicting the data at each step using the previous data and learning from it. This helps in predicting the anamolies over the years.  
 
-In the graph below, the blue line was the prediction based on previous data at every point. And green line is the original closing stock values.  
-In the site, the graph is interactive, drag to zoom into particular period. Double-click to zoom out.
+In the graph below, the blue line was the prediction based on previous data at every point. And green line is the original closing stock values. In the site, the graph is interactive, drag to zoom into particular period. Double-click to zoom out.
 ![Alt text](images/graph.jpeg?raw=true)
 
-You can get company information and finance news in the second page.
+You can also get company information and finance news in the second page.  
