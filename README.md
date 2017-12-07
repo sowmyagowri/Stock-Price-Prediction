@@ -23,13 +23,15 @@ Dygraphs for plotting
 	$source Dependencies/bin/activate  
 4. Install dependencies numpy, scipy, requests, pyyaml, tensorflow, keras  
 	$pip install -r requirements.txt  
-5. Run "Command Prompt Run/prophet.py" -- this starts the http server using python flask  
+5. Run "Stock Market Prediction/prophet.py" -- this starts the http server using python flask  
 6. Open the port on browser and use the site.  
 
 ## Site available at: http://13.57.46.92:5000/ 
 ![Alt text](images/homepage.jpeg?raw=true) 
 
-In homepage, when the company ticker symbol is given, it fetches real time data using yahoo finance api.    
+In homepage, when the company ticker symbol is given, it fetches real time data using yahoo finance api.   
+Once in a while, an error comes in retrieving data from yahoo finance as they check for captcha to make sure no automated system is using their data.  
+In that case, just go back to the homepage and try again. 
 ![Alt text](images/runtime_data_fetch.jpeg?raw=true) 
 
 The machine learning model tries to for the entire time period, predicting the data at each step using the previous data and learning from it. This helps in predicting the anamolies over the years.  
