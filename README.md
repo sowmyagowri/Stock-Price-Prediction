@@ -1,7 +1,7 @@
 # Project-Team-6  
 ## Stock Price Prediction 
 ### Learn about the product at: https://www.youtube.com/watch?v=jAdHvbbOOYs
-
+### Demo of our Project is at: https://www.youtube.com/watch?v=k9y4nsVdkIE&feature=youtu.be
 A web based product using machine learning models to predict future stock values based on the historical values.  
 
 ## Machine learning models used:  
