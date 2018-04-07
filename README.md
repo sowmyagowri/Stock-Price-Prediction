@@ -4,7 +4,7 @@
 1. [Sowmya Gowrishankar](https://github.com/sowmyagowri)
 2. [Indira Priyadarshini Bobburi](https://github.com/IndiraBobburi)
 3. [Vijay Yadav](https://github.com/vijay8608)
-4. [Niral Koradia] (https://github.com/vijay8608)
+4. [Niral Koradia](https://github.com/vijay8608)
 
 ### Learn about the product at: https://www.youtube.com/watch?v=jAdHvbbOOYs
 ### Demo of our Project is at: https://www.youtube.com/watch?v=k9y4nsVdkIE&feature=youtu.be
